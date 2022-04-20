@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/lib/jquery/dist/jquery.min.js"></script>    
+    <script src="/vue/vue.js"></script>
+    <script src="/js/Model.js?1"></script>
+    <script src="/angular/angular.min.js"></script>
+</head>
+
+<body>
+    <br />
+    <a href="#!view" onclick="Model.ShowSection('View')">1. View all retrospectives/Search retrospective by dates</a>
+    <br />    
+    <a href="#!add" onclick="Model.ShowSection('Add')">2. Add new retrospectives</a>
+    <br />
+    <a href="#!addFeedback" onclick="Model.ShowSection('AddFeedback')">3. Add feedback items into the existing retrospective</a>
+    <br />
+    <br />
+
+    <div id="view" style="display:none">
+        <div class="panel panel-primary" id="view">
+
+            <br />
+            <label for="fromDate">From Date:</label>
+            <input type="date" id="fromDate" name="fromDate"><br><br>
+            <label for="toDate">To Date:</label>
+            <input type="date" id="toDate" name="toDate"><br><br>
+                       
+            <input type="button" id="btnGet" value="Retrieve" v-on:click="view" />
+            <br /><br />
+            <div class="panel-heading">
+                View All Retrospectives/Search Retrospective by Dates
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Summary</th>
+                        <th>Date</th>
+                        <th>Participants</th>
+                        <th>Name of Person</th>
+                        <th>Body</th>
+                        <th>FeedbackType</th>
+                    </tr>
+                    <tr v-for="a in appData">
+                        <td>{{a.name}}</td>
+                        <td>{{a.summary}}</td>
+                        <td>{{a.date}}</td>
+                        <td>{{a.participants}}</td>
+                        <td>{{a.nameOfPerson}}</td>
+                        <td>{{a.body}}</td>
+                        <td>{{a.feedbackType}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+       
+    <div id="add" style="display:none">
+        <div class="panel panel-primary" id="add">
+            <br />
+            <input type="button" id="btnAdd" value="Add" v-on:click="add" />
+            <br /><br />
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="summary">Summary:</label>
+            <input type="text" id="summary" name="summary"><br><br>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date"><br><br>
+            <label for="participants">Participants:</label>
+            <textarea id="participants" name="participants" rows="4" cols="50" placeholder="Please input the participants line by line.">  
+            </textarea><br><br>
+            <label id="result"></label>
+        </div>
+    </div>
+
+    <div id="addFeedback" style="display:none">
+        <div class="panel panel-primary" id="add">
+            <br />
+            <input type="button" id="btnAddFeedback" value="Add Feedback" v-on:click="addFeedback" />
+            <br /><br />
+
+            <label for="name">Name:</label>
+            @*<select name="retrospectives" id="retrospectives">
+                <option v-for="retrospective in retrospectives" :value="retrospective.name" :key="retrospective.name">{{ retrospective.name }}</option>
+                </select>*@
+            <select name="retrospectives" id="retrospectives">
+            </select><br><br>
+
+            <label for="NameOfPerson">Name of Person:</label>
+            <input type="text" id="nameOfPerson" name="nameOfPerson"><br><br>
+            <label for="body">Body:</label>
+            <input type="text" id="body" name="body"><br><br>
+            <label for="feedbackType">Feedback Type:</label>
+            <select name="feedbackType" id="feedbackType">
+            </select><br><br>
+            <label id="addFeedbackResult"></label>
+
+        </div>
+    </div>
+
+    <script>
+        Model.View();
+        Model.Add();
+        Model.AddFeedback();
+    </script>
+</body>
+
+</html>
